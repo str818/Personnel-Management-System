@@ -1,4 +1,4 @@
-create database sm
+create database sm；
 
 create table department(
 	id int primary key auto_increment,
