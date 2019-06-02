@@ -20,7 +20,7 @@ public class DispatcherServlet extends GenericServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        context = new ClassPathXmlApplicationContext("spring");
+        context = new ClassPathXmlApplicationContext("spring.xml");
     }
 
     @Override
@@ -34,6 +34,7 @@ public class DispatcherServlet extends GenericServlet {
          */
 
         String path = request.getServletPath().substring(1);
+        System.out.println(path);
         String beanName = null;
         String methodName = null;
         int index = path.indexOf('/');
@@ -48,6 +49,7 @@ public class DispatcherServlet extends GenericServlet {
 
         Object obj = context.getBean(beanName);
         try {
+            System.out.println(beanName + " " + methodName);
             Method method = obj.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(obj, request, response);
         } catch (NoSuchMethodException e) {
